@@ -1,5 +1,8 @@
 #!/bin/bash
 
+# ToDo: Add an optional length limit.
+# ToDo: Alternate language sources?
+
 aRandomWord() {
     randomWordLength=0
     # Select a random word LENGTH between 4 and 9 characters: randomWordLength
@@ -10,6 +13,10 @@ aRandomWord() {
     # Select a random word of randomWordLength from the wordlist at /usr/share/dict/words
     dictionaryList=/usr/share/dict/words
     randomWord=$( grep -ie "^.\{$randomWordLength\}$" $dictionaryList | sort -uR | head -n 1 )
+    rand=$[ $RANDOM % 2 ]
+    if [ "$rand" = "1" ]; then
+        randomWord="$(tr '[:lower:]' '[:upper:]' <<< ${randomWord:0:1})${randomWord:1}"
+    fi
     echo -n "${randomWord}"
 }
 
@@ -23,6 +30,11 @@ aRandomChar() {
     echo -n "${randomChar}"
 }
 
+aRandomDigit() {
+    # Choose a random digit
+    echo $(( $RANDOM % 10))
+}
+
 generatePhrase() {
     #repeat two times
     loop=0
@@ -33,6 +45,7 @@ generatePhrase() {
         loop=$(( loop + 1 ))
     done
     aRandomWord
+    aRandomDigit
     echo ""
 }
 
