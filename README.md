@@ -21,4 +21,3 @@ Uses the word list that is included with all macOS / OS X versions and randomly 
 Only need to run the memorable-phrase.sh script:
 
     ./memorable-phrase.sh
-
