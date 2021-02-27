@@ -18,6 +18,6 @@ This is an expeditious interim solution.
 Uses the word list that is included with all macOS / OS X versions and randomly selects a word length and uses generally-safe characters to separate them.
 
 ## Usage
-Only need to run the memorable-phrase.sh script:
+Only need to run the passphrase.sh script:
 
-    ./memorable-phrase.sh
+    ./passphrase.sh
