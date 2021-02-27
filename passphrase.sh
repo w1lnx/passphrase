@@ -1,29 +1,33 @@
 #!/bin/bash
 
+# ALWAYS have a default minimum state.
+
 # ToDo: Add an optional length limit.
 # ToDo: Alternate language sources?
 
 aRandomWord() {
+    # Select a random word LENGTH between three and 12 characters: randomWordLength
     randomWordLength=0
-    # Select a random word LENGTH between 4 and 9 characters: randomWordLength
-    while [ $randomWordLength -lt "3" ] || [ $randomWordLength -gt "8" ]
+    lowerWordLength=3
+    upperWordLength=12
+    while [ $randomWordLength -lt "${lowerWordLength}" ] || [ $randomWordLength -gt "${upperWordLength}" ]
     do
-        randomWordLength=$(( ( RANDOM % 10 )))
+        randomWordLength=$(( ( RANDOM % upperWordLength ) ))
     done
     # Select a random word of randomWordLength from the wordlist at /usr/share/dict/words
     dictionaryList=/usr/share/dict/words
     randomWord=$( grep -ie "^.\{$randomWordLength\}$" $dictionaryList | sort -uR | head -n 1 )
-    rand=$[ $RANDOM % 2 ]
-    if [ "$rand" = "1" ]; then
+    randNumber=$[ $RANDOM % 2 ]
+    if [ "$randNumber" = "1" ]; then
         randomWord="$(tr '[:lower:]' '[:upper:]' <<< ${randomWord:0:1})${randomWord:1}"
     fi
     echo -n "${randomWord}"
 }
 
 aRandomChar() {
-    # Choose a random special character (safeChars) to follow the word. Unicode would be ideal, but these ASCII characters are least problematic for most password handlers.
+    # Choose a random special character (safeChars) to follow the word. Unicode would be ideal, but these ASCII characters are least problematic for most password handlers -- and they're our LCD.
+    # ToDo: add an optional flag to select from safeCharacter lists
     safeChars="@$%^()-=[]{},./_+:?"
-    # The length of the string, $safeChars
     puncCharLen=${#safeChars}
     randomInteger=$(( ( RANDOM % puncCharLen ) ))
     randomChar=${safeChars:randomInteger:1}
