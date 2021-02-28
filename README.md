@@ -11,7 +11,7 @@ Presently in macOS 10.15.5, the Password Assistant offers only these four option
 
 * FIPS-181 Compliant: wehritirby...
 
-Every one of them will generate a password that is either quite difficult for a human to remember, or, paradoxically, trivially-simple for a computer to brute-force. See also: [XKCD #936](https://xkcd.com/936/)
+Every one of them will generate a password that is either quite difficult for a human to remember, or, paradoxically, trivially-simple for a computer to brute-force. See also: [xkcd #936](https://xkcd.com/936/)
 
 This is an expeditious interim solution.
 
