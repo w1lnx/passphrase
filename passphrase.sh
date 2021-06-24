@@ -6,7 +6,8 @@
 # ToDo: Alternate language sources?
 
 aRandomWord() {
-    # Select a random word LENGTH between three and 12 characters: randomWordLength
+    # Select a random word LENGTH between three and 12 characters:
+    # randomWordLength
     randomWordLength=0
     lowerWordLength=3
     upperWordLength=12
@@ -14,7 +15,8 @@ aRandomWord() {
     do
         randomWordLength=$(( ( RANDOM % upperWordLength ) ))
     done
-    # Select a random word of randomWordLength from the wordlist at /usr/share/dict/words
+    # Select a random word of randomWordLength from the wordlist at
+    # /usr/share/dict/words
     dictionaryList=/usr/share/dict/words
     randomWord=$( grep -ie "^.\{$randomWordLength\}$" $dictionaryList | sort -uR | head -n 1 )
     randNumber=$[ $RANDOM % 2 ]
@@ -25,17 +27,26 @@ aRandomWord() {
 }
 
 aRandomChar() {
-    # Choose a random special character (safeChars) to follow the word. Unicode would be ideal, but these ASCII characters are least problematic for most password handlers -- and they're our LCD.
-    # ToDo: add an optional flag to select from safeCharacter lists
-    safeChars="@$%^()-=[]{},./_+:?"
+    # Choose a random special character (safeChars) to follow the word. Unicode
+    # would be ideal, but these ASCII characters are least problematic for most
+    # password handlers -- and they're our LCD.
+    chChars="@$%^()-=[]{},./_+:?"
+    # Yep, unicode. You're welcome:
+    utf8Chars="🤔💭❓💡❗️§⌘📗😂🖕Ωμ🛩🧾‽🎵🎶"
+    safeChars=${chChars}+${utf8Chars}
+    #   altCharList1="\!\"#$%&'()*+,-./:;<=>?@[\]^>\`\\{|\}~"
+    #       ->  \!"#$%&'()*+,-./:;<=>?@[\]^>`\{|\}~
     puncCharLen=${#safeChars}
+        # The actual length of the safeChars string above.
     randomInteger=$(( ( RANDOM % puncCharLen ) ))
+        # A random position in that string.
     randomChar=${safeChars:randomInteger:1}
+        # The character at that random position.
     echo -n "${randomChar}"
 }
 
 aRandomDigit() {
-    # Choose a random digit
+    # Choose a random digit from 0 to 9.
     echo $(( $RANDOM % 10))
 }
 
@@ -50,7 +61,6 @@ generatePhrase() {
     done
     aRandomWord
     aRandomDigit
-    echo ""
 }
 
 generatePhrase
